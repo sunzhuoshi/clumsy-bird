@@ -8,6 +8,7 @@ game.GameOverScreen = me.ScreenObject.extend({
   },
 
   onResetEvent: function() {
+    me.audio.play('gameover', false);
     //save section
     this.savedData = {
       score: game.data.score,
@@ -15,7 +16,6 @@ game.GameOverScreen = me.ScreenObject.extend({
     };
     me.save.add(this.savedData);
     if (!me.save.topSteps) me.save.add({topSteps: game.data.timer});
-    console.log(game.data.newHiScore);
     if (game.data.timer > me.save.topSteps){
       me.save.topSteps = game.data.timer;
       game.data.newHiScore = true;
@@ -80,7 +80,7 @@ game.GameOverScreen = me.ScreenObject.extend({
     me.game.world.addChild(Share, 12);
     */
 
-    // add the dialog witht he game information
+    // add the dialog with the game information
     if (game.data.newHiScore){
       var newRect = new me.SpriteObject(
           235,
@@ -139,6 +139,7 @@ game.GameOverScreen = me.ScreenObject.extend({
   },
 
 	onDestroyEvent : function() {
+        me.audio.stop('gameover');
 		// unregister the event
 		me.event.unsubscribe(this.handler);
     me.input.unbindKey(me.input.KEY.ENTER);

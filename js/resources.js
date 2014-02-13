@@ -1,5 +1,4 @@
 game.resources = [
-
 	 {name: "bg", type:"image", src: "data/img/bg.png"},
 	 {name: "clumsy", type:"image", src: "data/img/clumsy.png"},
 	 {name: "pipe", type:"image", src: "data/img/pipe.png"},
@@ -14,4 +13,7 @@ game.resources = [
 	
 	 {name: "theme", type: "audio", src: "data/bgm/"},
 	 {name: "intro", type: "audio", src: "data/bgm/"},
+     {name: "gameover", type: "audio", src: "data/bgm/"},
+     {name: "coin", type: "audio", src: "data/sfx/"},
+     {name: "fly", type: "audio", src: "data/sfx/"}
 ];

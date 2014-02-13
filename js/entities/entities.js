@@ -38,6 +38,8 @@ var BirdEntity = me.ObjectEntity.extend({
         this.flyTween.start();
 
         this.renderable.angle = -this.maxAngleRotation;
+        me.audio.stop('fly');
+        me.audio.play('fly', false);
       } else {
         this.gravityForce += 0.2;
         this.pos.y += me.timer.tick * this.gravityForce;
@@ -60,6 +62,7 @@ var BirdEntity = me.ObjectEntity.extend({
       // give the time in ms since last frame
       // use it instead ?
       game.data.timer++;
+      me.audio.play('coin', false);
 
     } else {
       var hitGround = me.game.viewport.height - (96 + 60);
