@@ -81,7 +81,6 @@ game.GameOverScreen = me.ScreenObject.extend({
     */
 
     // add the dialog with the game information
-      game.data.newHiScore = true;
     if (game.data.newHiScore){
       var newRect = new me.SpriteObject(
           235,
