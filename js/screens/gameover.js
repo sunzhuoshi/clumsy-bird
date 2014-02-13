@@ -81,10 +81,11 @@ game.GameOverScreen = me.ScreenObject.extend({
     */
 
     // add the dialog with the game information
+      game.data.newHiScore = true;
     if (game.data.newHiScore){
       var newRect = new me.SpriteObject(
           235,
-          415,
+          385,
           me.loader.getImage('new')
       );
       me.game.world.addChild(newRect, 12);
