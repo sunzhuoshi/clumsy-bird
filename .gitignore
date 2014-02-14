@@ -5,3 +5,5 @@
 *.zip
 
 *.orig
+
+/archive/
