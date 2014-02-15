@@ -6,6 +6,7 @@ game.GameOverScreen = me.ScreenObject.extend({
     this.dialog = null;
     this.share = null;
     this.tweet = null;
+    this.shareViaSinaWeibo = null;
   },
 
   onResetEvent: function() {
@@ -36,7 +37,7 @@ game.GameOverScreen = me.ScreenObject.extend({
     var gImage =  me.loader.getImage('gameover');
     me.game.world.addChild(new me.SpriteObject(
         me.video.getWidth()/2 - gImage.width/2,
-        me.video.getHeight()/2 - gImage.height/2 - 100,
+        me.video.getHeight()/2 - gImage.height/2 - 80,
         gImage
     ), 10);
 
@@ -54,6 +55,10 @@ game.GameOverScreen = me.ScreenObject.extend({
     //tweet button
     this.tweet = new Tweet();
     me.game.world.addChild(this.tweet, 12);
+
+    // share via sina weibo button
+    this.shareViaSinaWeibo = new ShareViaSinaWeibo();
+    me.game.world.addChild(this.shareViaSinaWeibo, 12);
 
     // add the dialog witht he game information
     if (game.data.newHiScore){

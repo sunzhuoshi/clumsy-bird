@@ -86,7 +86,7 @@ var BackgroundLayer = me.ImageLayer.extend({
 var Share = me.GUI_Object.extend({
   init: function(){
     var settings = {};
-    var x = me.video.getWidth()/2 - 170;
+    var x = me.video.getWidth()/2 - 185 - 187 / 2;
     var y = me.video.getHeight()/2 + 200;
     settings.image = "share";
     settings.spritewidth = 150;
@@ -117,17 +117,14 @@ var Share = me.GUI_Object.extend({
 var Tweet = me.GUI_Object.extend({
   init: function(){
     var settings = {};
-    var x = me.video.getWidth()/2 + 10;
+    var x = me.video.getWidth()/2 + 39 + 187 / 2;
     var y = me.video.getHeight()/2 + 200;
     settings.image = "tweet";
     settings.spritewidth = 152;
     settings.spriteheight = 75;
     this.parent(x, y, settings);
   },
-
   onClick: function(event){
-      console.log(game.data);
-
     var shareText = 'I just made ' + game.data.steps + ' step' + (game.data.steps>1?'s':'') + ' on Flappy Dragon! Can you beat me? Try it online here!';
       console.log(shareText);
     var url = 'http://flappydragon.net/';
@@ -135,5 +132,26 @@ var Tweet = me.GUI_Object.extend({
     window.open('https://twitter.com/intent/tweet?text=' + shareText + '&hashtags=' + hashtags + '&count=' + url + '&url=' + url, 'Tweet!', 'height=300,width=400')
     return false;
   }
+});
 
+var ShareViaSinaWeibo = me.GUI_Object.extend({
+    init: function() {
+        var settings = {};
+        var x = me.video.getWidth()/2 - 187 / 2;
+        var y = me.video.getHeight()/2 + 200;
+        settings.image = "shareviasinaweibo";
+        settings.spritewidth = 187;
+        settings.spriteheight = 75;
+        this.parent(x, y, settings);
+    },
+    onClick: function(event){
+        WB2.anyWhere(function(W){
+            W.widget.publish({
+                'id' : 'publish',
+                'default_text' : '#flappydragon#' + '我刚刚在蛋龙宝宝大冒险中获得了' + game.data.steps + '分，你行么！？来挑战我吧！点击就玩http://flappydragon.net',
+                'default_image': 'http://flappydragon.net/data/img/Icon@2x.png'
+            });
+        });
+        return false;
+    }
 });

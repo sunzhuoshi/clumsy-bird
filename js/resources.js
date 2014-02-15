@@ -11,7 +11,7 @@ game.resources = [
 	 {name: "new", type:"image", src: "data/img/new.png"},
 	 {name: "share", type:"image", src: "data/img/share.png"},
 	 {name: "tweet", type:"image", src: "data/img/tweet.png"},
-
+     {name: "shareviasinaweibo", type:"image", src: "data/img/shareviasinaweibo.png"},
 	
 	 {name: "theme", type: "audio", src: "data/bgm/"},
 	 {name: "intro", type: "audio", src: "data/bgm/"},
