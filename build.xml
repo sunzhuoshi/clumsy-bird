@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<project name="Javascript compress project" basedir="." default="simple">
+    <taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask"
+             classpath="${basedir}/tool/closure-compiler/compiler.jar"/>
+    <target name="simple">
+        <jscomp compilationLevel="simple" warning="quiet"
+                debug="false" output="flappy-dragon-min.js">
+            <!-- lib sources -->
+            <sources dir="${basedir}/lib">
+                <file name="melonJS-1.0.0-min.js"/>
+            </sources>
+            <!-- game sources -->
+            <sources dir="${basedir}/js">
+                <file name="game.js"/>
+                <file name="resources.js"/>
+                <file name="entities/entities.js"/>
+                <file name="entities/HUD.js"/>
+                <file name="screens/title.js"/>
+                <file name="screens/play.js"/>
+                <file name="screens/gameover.js"/>
+            </sources>
+            <!-- externs -->
+            <externs dir="${basedir}/externs">
+                <file name="game_extern.js"/>
+                <file name="melonJS_extern.js"/>
+                <file name="webaudio_extern.js"/>
+                <file name="webkit_webaudio_extern.js"/>
+            </externs>
+        </jscomp>
+    </target>
+    <target name="advanced">
+        <jscomp compilationLevel="simple" warning="quiet"
+                debug="false" output="flappy-dragon-min.js">
+            <!-- lib sources -->
+            <sources dir="${basedir}/lib">
+                <file name="melonJS-1.0.0-min.js"/>
+            </sources>
+            <!-- game sources -->
+            <sources dir="${basedir}/js">
+                <file name="game.js"/>
+                <file name="resources.js"/>
+                <file name="entities/entities.js"/>
+                <file name="entities/HUD.js"/>
+                <file name="screens/title.js"/>
+                <file name="screens/play.js"/>
+                <file name="screens/gameover.js"/>
+            </sources>
+            <!-- externs -->
+            <externs dir="${basedir}/externs">
+                <file name="game_extern.js"/>
+                <file name="melonJS_extern.js"/>
+                <file name="webaudio_extern.js"/>
+                <file name="webkit_webaudio_extern.js"/>
+            </externs>
+        </jscomp>
+    </target>
+</project>

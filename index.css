@@ -30,12 +30,3 @@ body {
 	image-rendering: optimize-contrast;
 	-ms-interpolation-mode: nearest-neighbor;
 }
-
-#share {
-  margin: 10px auto;
-  text-align: center;
-}
-
-#share .fb-share-button iframe {
-	margin-top: -4px;
-}

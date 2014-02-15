@@ -2,9 +2,10 @@
 #source config.sh
 
 project=flappy-dragon
-distr_files=(index.css index.html)
+single_file=flappy-dragon-min.js
+distr_files=($single_file index.css index.html)
 # DO NOT ADD the last '/'
-distr_dirs=(data js lib)
+distr_dirs=(data)
 root_dir=$(pwd)
 archive_dir=$(pwd)/archive
 check_error()
@@ -36,6 +37,12 @@ create_version_dir()
         create_dir $version_dir
 }
 echo 'start'
+rm -f $single_file
+echo 'compiling...'
+ant
+if [ $? -ne 0 ]; then
+    exit $?
+fi
 create_version_dir
 
 for file in ${distr_files[@]}; do

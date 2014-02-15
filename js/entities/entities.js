@@ -75,7 +75,7 @@ var BirdEntity = me.ObjectEntity.extend({
 
     return this.parent(dt);
 
-  },
+  }
 
 });
 
@@ -103,7 +103,7 @@ var PipeEntity = me.ObjectEntity.extend({
       me.game.world.removeChild(this);
     }
     return true;
-  },
+  }
 
 });
 
@@ -134,7 +134,7 @@ var PipeGenerator = me.Renderable.extend({
       me.game.world.addChild(hit, 11);
     }
     return true;
-  },
+  }
 
 });
 
@@ -162,6 +162,6 @@ var HitEntity = me.ObjectEntity.extend({
       me.game.world.removeChild(this);
     }
     return true;
-  },
+  }
 
 });

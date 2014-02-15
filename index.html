@@ -2,6 +2,10 @@
 <html lang="en">
   <head>
     <title>Flappy Dragon</title>
+    <script>
+      // NOTE: DON'T forget to change it when update
+      var VERSION='1.2.2';
+    </script>
     <link rel="stylesheet" type="text/css" media="screen" href="index.css">
     <link rel="icon" type="image/GIF" href="data/img/favicon.ico"/>
     <link rel="apple-touch-icon-precomposed" href="data/img/Icon.png">
@@ -17,10 +21,6 @@
     <meta property="og:title" content="Flappy Dragon - A Flappy Bird clone based on clumsy bird by ellisonleao"/>
     <meta property="og:url" content="http://flappydragon.net"/>
     <meta property="og:site_name" content="Flappy Dragon"/>
-    <script>
-        // NOTE: DON'T forget to change it when update
-        var VERSION='1.2.0';
-    </script>
   </head>
 
   <body>
@@ -29,18 +29,8 @@
     <div id="copyright" style="margin: 10px 0; text-align: center">
         Created by 春哥株式会社 2014(v<script>document.write(VERSION)</script>), based on <a href="https://twitter.com/ellisonleao">ellisonleao</a>'s <a href="http://ellisonleao.github.io/clumsy-bird">clumsy bird</a>
     </div>
-    <!-- melonJS Library -->
-    <script type="text/javascript" src="lib/melonJS-1.0.0-min.js"></script>
-    <!-- Plugin(s) -->
-    <script type="text/javascript" src="lib/plugins/debugPanel.js"></script>
-    <!-- Game Scripts -->
-    <script type="text/javascript" src="js/game.js"></script>
-    <script type="text/javascript" src="js/resources.js"></script>
-    <script type="text/javascript" src="js/entities/entities.js"></script>
-    <script type="text/javascript" src="js/entities/HUD.js"></script>
-    <script type="text/javascript" src="js/screens/title.js"></script>
-    <script type="text/javascript" src="js/screens/play.js"></script>
-    <script type="text/javascript" src="js/screens/gameover.js"></script>
+    <!-- Compiled Game Script -->
+    <script type="text/javascript" src="flappy-dragon-min.js"></script>
     <!-- Bootstrap & Mobile optimization tricks -->
     <script type="text/javascript">
       window.onReady(function onReady() {

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <title>Flappy Dragon</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="index.css">
+    <link rel="icon" type="image/GIF" href="data/img/favicon.ico"/>
+    <link rel="apple-touch-icon-precomposed" href="data/img/Icon.png">
+    <link rel="apple-touch-icon-precomposed" href="data/img/Icon@2x.png" sizes="114x114">
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta charset="UTF-8" />
+    <meta name="description" content="Flappy Dragon - A Flappy Bird clone based on clumsy bird by sllisonleao"/>
+    <meta name="keywords" content="flappybird, flappy, bird, game, html5, melonjs, clone, puzzle, dragons, pad, pnd"/>
+    <meta name="robots" content="index, follow">
+    <meta property="og:image" content="http://flappydragon.net/data/img/bg.png" />
+    <meta property="og:title" content="Flappy Dragon - A Flappy Bird clone based on clumsy bird by ellisonleao"/>
+    <meta property="og:url" content="http://flappydragon.net"/>
+    <meta property="og:site_name" content="Flappy Dragon"/>
+    <script>
+        // NOTE: DON'T forget to change it when update
+        var VERSION='1.2.0';
+    </script>
+  </head>
+
+  <body>
+    <!-- Canvas placeholder -->
+    <div id="screen"></div>
+    <div id="copyright" style="margin: 10px 0; text-align: center">
+        Created by 春哥株式会社 2014(v<script>document.write(VERSION)</script>), based on <a href="https://twitter.com/ellisonleao">ellisonleao</a>'s <a href="http://ellisonleao.github.io/clumsy-bird">clumsy bird</a>
+    </div>
+    <!-- melonJS Library -->
+    <script type="text/javascript" src="lib/melonJS-1.0.0-min.js"></script>
+    <!-- Plugin(s) -->
+    <script type="text/javascript" src="lib/plugins/debugPanel.js"></script>
+    <!-- Game Scripts -->
+    <script type="text/javascript" src="js/game.js"></script>
+    <script type="text/javascript" src="js/resources.js"></script>
+    <script type="text/javascript" src="js/entities/entities.js"></script>
+    <script type="text/javascript" src="js/entities/HUD.js"></script>
+    <script type="text/javascript" src="js/screens/title.js"></script>
+    <script type="text/javascript" src="js/screens/play.js"></script>
+    <script type="text/javascript" src="js/screens/gameover.js"></script>
+    <!-- Bootstrap & Mobile optimization tricks -->
+    <script type="text/javascript">
+      window.onReady(function onReady() {
+        game.onload();
+
+        // Mobile browser hacks
+        if (me.device.isMobile && !navigator.isCocoonJS) {
+          // Prevent the webview from moving on a swipe
+          window.document.addEventListener("touchmove", function (e) {
+            e.preventDefault();
+            window.scroll(0, 0);
+            return false;
+          }, false);
+
+          // Scroll away mobile GUI
+          (function () {
+            window.scrollTo(0, 1);
+            me.video.onresize(null);
+          }).defer();
+
+          me.event.subscribe(me.event.WINDOW_ONRESIZE, function (e) {
+            window.scrollTo(0, 1);
+          });
+        }
+      });
+    </script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-48010296-1', 'flappydragon.net');
+        ga('send', 'pageview');
+    </script>
+    <!-- facebook -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=711540455545711";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <!-- sina weibo -->
+    <script src=" http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=3076052560" type="text/javascript" charset="utf-8"></script>
+  </body>
+</html>
