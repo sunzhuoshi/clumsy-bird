@@ -19,20 +19,11 @@
     <meta property="og:site_name" content="Flappy Dragon"/>
     <script>
         // NOTE: DON'T forget to change it when update
-        var VERSION='1.1.1';
+        var VERSION='1.1.2';
     </script>
   </head>
 
   <body>
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=711540455545711";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-    </script>
     <!-- Canvas placeholder -->
     <div id="screen"></div>
     <div id="copyright" style="margin: 10px 0; text-align: center">
@@ -40,21 +31,16 @@
     </div>
     <!-- melonJS Library -->
     <script type="text/javascript" src="lib/melonJS-1.0.0-min.js"></script>
-
     <!-- Plugin(s) -->
     <script type="text/javascript" src="lib/plugins/debugPanel.js"></script>
-    
     <!-- Game Scripts -->
     <script type="text/javascript" src="js/game.js"></script>
     <script type="text/javascript" src="js/resources.js"></script>
-
     <script type="text/javascript" src="js/entities/entities.js"></script>
     <script type="text/javascript" src="js/entities/HUD.js"></script>
-
     <script type="text/javascript" src="js/screens/title.js"></script>
     <script type="text/javascript" src="js/screens/play.js"></script>
     <script type="text/javascript" src="js/screens/gameover.js"></script>
-    
     <!-- Bootstrap & Mobile optimization tricks -->
     <script type="text/javascript">
       window.onReady(function onReady() {
@@ -89,5 +75,17 @@
         ga('create', 'UA-48010296-1', 'flappydragon.net');
         ga('send', 'pageview');
     </script>
+    <!-- facebook -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=711540455545711";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <!-- sina weibo -->
+    <script src=" http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=3168919025" type="text/javascript" charset="utf-8"></script>
   </body>
 </html>
