@@ -126,7 +126,6 @@ var Tweet = me.GUI_Object.extend({
   },
   onClick: function(event){
     var shareText = 'I just made ' + game.data.steps + ' step' + (game.data.steps>1?'s':'') + ' on Flappy Dragon! Can you beat me? Try it online here!';
-      console.log(shareText);
     var url = 'http://flappydragon.net/';
     var hashtags = 'flappydragon,clumsybird,melonjs'
     window.open('https://twitter.com/intent/tweet?text=' + shareText + '&hashtags=' + hashtags + '&count=' + url + '&url=' + url, 'Tweet!', 'height=300,width=400')
