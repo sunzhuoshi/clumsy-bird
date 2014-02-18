@@ -3,7 +3,7 @@
 
 project=flappy-dragon
 single_file=flappy-dragon-min.js
-distr_files=($single_file index.css index.html privacy.html)
+distr_files=(.htaccess $single_file index.css index.html privacy.html)
 # DO NOT ADD the last '/'
 distr_dirs=(data)
 root_dir=$(pwd)
@@ -61,6 +61,6 @@ rm -rf .DS_Store
 rm -rf .placeholder
 
 echo packaging...
-zip -r $package_file ./*
+zip -r $package_file .
 
 echo done!
