@@ -56,11 +56,18 @@ game.GameOverScreen = me.ScreenObject.extend({
     this.tweet = new Tweet();
     me.game.world.addChild(this.tweet, 12);
 
-    // share via sina weibo button
-    this.shareViaSinaWeibo = new ShareViaSinaWeibo();
-    me.game.world.addChild(this.shareViaSinaWeibo, 12);
+    // only init it when succeed loading sina weibo jssdk
+    if (typeof WB2 !== 'undefined') {
+        // share via sina weibo button
+        this.shareViaSinaWeibo = new ShareViaSinaWeibo();
+        me.game.world.addChild(this.shareViaSinaWeibo, 12);
+    }
+    else {
+        this.tweet.pos.x -= SHARE_VIA_SINA_WEIBO_BUTTON_WIDTH / 2;
+        this.share.pos.x += SHARE_VIA_SINA_WEIBO_BUTTON_WIDTH / 2;
+    }
 
-    // add the dialog witht he game information
+    // add the dialog with the game information
     if (game.data.newHiScore){
       var newRect = new me.SpriteObject(
           235,

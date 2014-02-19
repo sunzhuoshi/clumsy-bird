@@ -5,6 +5,8 @@ project=flappy-dragon
 single_file=flappy-dragon-min.js
 distr_files=(.htaccess $single_file index.css index.html privacy.html)
 # DO NOT ADD the last '/'
+#distr_dirs=(.ebextensions data)
+# remove .ebxextension to reduce deployment time
 distr_dirs=(data)
 root_dir=$(pwd)
 archive_dir=$(pwd)/archive
@@ -51,14 +53,15 @@ for file in ${distr_files[@]}; do
 done
 
 for dir in ${distr_dirs[@]}; do
-	rsync -av --exclude=".*" $dir $version_dir/
+	# rsync -av --exclude=".*" $dir $version_dir/
+	rsync -av $dir $version_dir/
 	check_error
 done
 
 cd $version_dir
 echo "removing hidden file(s)..."
-rm -rf .DS_Store
-rm -rf .placeholder
+find . -name ".DS_Store"  | xargs rm -f
+find . -name ".placeholder"  | xargs rm -f
 
 echo packaging...
 zip -r $package_file .

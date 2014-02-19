@@ -1,3 +1,10 @@
 RewriteEngine On
-RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+# redirects
+# https://www.flappydragon.net --> http://flappydragon.net
+# http://www.flappydragon.net  --> http://flappydragon.net
+# TODO: https://flappydragon.net to http://flappydragon.net
+
+#RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+#RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+

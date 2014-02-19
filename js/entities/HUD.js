@@ -83,10 +83,12 @@ var BackgroundLayer = me.ImageLayer.extend({
   }
 });
 
+var SHARE_VIA_SINA_WEIBO_BUTTON_WIDTH = 187;
+
 var Share = me.GUI_Object.extend({
   init: function(){
     var settings = {};
-    var x = me.video.getWidth()/2 - 185 - 187 / 2;
+    var x = me.video.getWidth()/2 - 185 - SHARE_VIA_SINA_WEIBO_BUTTON_WIDTH / 2;
     var y = me.video.getHeight()/2 + 200;
     settings.image = "share";
     settings.spritewidth = 150;
@@ -117,7 +119,7 @@ var Share = me.GUI_Object.extend({
 var Tweet = me.GUI_Object.extend({
   init: function(){
     var settings = {};
-    var x = me.video.getWidth()/2 + 39 + 187 / 2;
+    var x = me.video.getWidth()/2 + 39 + SHARE_VIA_SINA_WEIBO_BUTTON_WIDTH / 2;
     var y = me.video.getHeight()/2 + 200;
     settings.image = "tweet";
     settings.spritewidth = 152;
@@ -136,7 +138,7 @@ var Tweet = me.GUI_Object.extend({
 var ShareViaSinaWeibo = me.GUI_Object.extend({
     init: function() {
         var settings = {};
-        var x = me.video.getWidth()/2 - 187 / 2;
+        var x = me.video.getWidth()/2 - SHARE_VIA_SINA_WEIBO_BUTTON_WIDTH / 2;
         var y = me.video.getHeight()/2 + 200;
         settings.image = "shareviasinaweibo";
         settings.spritewidth = 187;
@@ -154,3 +156,4 @@ var ShareViaSinaWeibo = me.GUI_Object.extend({
         return false;
     }
 });
+
