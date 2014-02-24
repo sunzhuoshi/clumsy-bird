@@ -4,7 +4,7 @@
     <title>Flappy Dragon</title>
     <script>
       // NOTE: DON'T forget to change it when update
-      var VERSION='1.2.5';
+      var VERSION='1.2.6';
     </script>
     <link rel="stylesheet" type="text/css" media="screen" href="index.css">
     <link rel="icon" type="image/GIF" href="data/img/favicon.ico"/>
@@ -75,7 +75,15 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
     </script>
-    <!-- sina weibo -->
-    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=3157843944" type="text/javascript" charset="utf-8"></script>
+    <!-- only link sina weibo when http used, for https not well supported by jssdk api -->
+    <script>
+        if ('http:' === window.location.protocol) {
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = 'http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=3157843944';
+            script.charset = 'utf-8';
+            document.body.appendChild(script);
+        }
+    </script>
   </body>
 </html>
