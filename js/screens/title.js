@@ -37,6 +37,9 @@ game.TitleScreen = me.ScreenObject.extend({
             this.parent(new me.Vector2d(), 100, 100);
             this.font = new me.Font('Arial Black', 20, 'black', 'left');
             this.text = me.device.touch ? 'Tap to start' : 'PRESS SPACE OR CLICK LEFT MOUSE BUTTON TO START';
+            if (replayController.inReplayMode()) {
+                this.text += me.device.touch ? ' reply' : ' REPLAY';
+            }
         },
         update : function () {
             return true;

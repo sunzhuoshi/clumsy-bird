@@ -85,6 +85,44 @@ var BackgroundLayer = me.ImageLayer.extend({
 
 var SHARE_VIA_SINA_WEIBO_BUTTON_WIDTH = 187;
 
+function getShareText(lang) {
+    var shareText;
+    switch (lang) {
+        case 'zhCN':
+            shareText = '#flappydragon#' + '我刚刚在蛋龙宝宝大冒险中获得了' + game.data.steps + '分，你行么！？'
+            if (replayController.getShortenReplayUrl()) {
+                shareText += '点击查看我的游戏回放';
+                shareText += replayController.getShortenReplayUrl();
+            }
+            else {
+                shareText += '点击就玩儿!';
+                shareText += game.siteUrl;
+            }
+            break;
+        case 'enUS':
+        default:
+            shareText = 'I just made ' + game.data.steps + ' step' + (game.data.steps>1?'s':'') + ' on Flappy Dragon! Can you beat me?';
+            if (replayController.getShortenReplayUrl()) {
+                shareText += ' Watch my replay here! ';
+                shareText += replayController.getShortenReplayUrl();
+            }
+            else {
+                shareText += ' Try it online here! ';
+                shareText += game.siteUrl
+            }
+            break;
+    }
+    return shareText;
+}
+
+function getShareUrl() {
+    var shareUrl = replayController.getShortenReplayUrl();
+    if (!shareUrl) {
+        shareUrl = game.siteUrl;
+    }
+    return shareUrl;
+}
+
 var Share = me.GUI_Object.extend({
   init: function(){
     var settings = {};
@@ -97,17 +135,15 @@ var Share = me.GUI_Object.extend({
   },
 
   onClick: function(event){
-    var shareText = 'I just made ' + game.data.steps + ' step' + (game.data.steps>1?'s':'') + ' on Flappy Dragon! Can you beat me? Try it online here!';
-    var url = 'http://flappydragon.net/';
     FB.ui(
       {
        method: 'feed',
        name: 'My Flappy Dragon Score!',
        caption: "Share to your friends",
        description: (
-          shareText
+           getShareText('enUS')
        ),
-       link: url,
+       link: getShareUrl(),
        picture: 'http://flappydragon.net/data/img/Icon@2x.png'
       }
     );
@@ -127,10 +163,8 @@ var Tweet = me.GUI_Object.extend({
     this.parent(x, y, settings);
   },
   onClick: function(event){
-    var shareText = 'I just made ' + game.data.steps + ' step' + (game.data.steps>1?'s':'') + ' on Flappy Dragon! Can you beat me? Try it online here!';
-    var url = 'http://flappydragon.net/';
     var hashtags = 'flappydragon,clumsybird,melonjs'
-    window.open('https://twitter.com/intent/tweet?text=' + shareText + '&hashtags=' + hashtags + '&count=' + url + '&url=' + url, 'Tweet!', 'height=300,width=400')
+    window.open('https://twitter.com/intent/tweet?text=' + getShareText('enUS') + '&hashtags=' + hashtags, 'Tweet!', 'height=300,width=400')
     return false;
   }
 });
@@ -149,7 +183,7 @@ var ShareViaSinaWeibo = me.GUI_Object.extend({
         WB2.anyWhere(function(W){
             W.widget.publish({
                 'id' : 'publish',
-                'default_text' : '#flappydragon#' + '我刚刚在蛋龙宝宝大冒险中获得了' + game.data.steps + '分，你行么！？来挑战我吧！点击就玩http://flappydragon.net',
+                'default_text' : getShareText('zhCN'),
                 'default_image': 'http://flappydragon.net/data/img/Icon@2x.png'
             });
         });

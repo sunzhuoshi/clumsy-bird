@@ -2,7 +2,6 @@ game.PlayScreen = me.ScreenObject.extend({
 	onResetEvent: function() {
     me.input.bindKey(me.input.KEY.SPACE, "fly", true);
 
-    game.data.score = 0;
     game.data.steps = 0;
     game.data.start = false;
     game.data.newHiscore = false;
@@ -34,12 +33,31 @@ game.PlayScreen = me.ScreenObject.extend({
       me.loader.getImage('getready')
     );
     me.game.world.addChild(this.getReady, 11);
-
-    var popOut = new me.Tween(this.getReady.pos).to({y: -132}, 2000)
+    var posY = -132;
+    if (replayController.inReplayMode()) {
+        posY -= 100;
+    }
+    var popOut = new me.Tween(this.getReady.pos).to({y: posY}, 2000)
       .easing(me.Tween.Easing.Linear.None)
       .onComplete(function(){
+            var pipeGenerator = new PipeGenerator;
+            me.game.world.pipeGenerator = pipeGenerator;
             game.data.start = true;
-            me.game.world.addChild(new PipeGenerator(), 0);
+            me.game.world.addChild(pipeGenerator, 0);
+            if (replayController.inReplayMode()) {
+                me.game.world.addChild(new (me.Renderable.extend ({
+                    // constructor
+                    init : function() {
+                        this.parent(new me.Vector2d(), 100, 100);
+                        this.font = new me.Font('Arial Black', 20, 'black', 'left');
+                        this.text = 'REPLAYING...';
+                    },
+                    draw : function (context) {
+                        var measure = this.font.measureText(context, this.text);
+                        this.font.draw(context, this.text,  me.game.viewport.width/2 - measure.width/2, 30);
+                    }
+                })), 12);
+            }
        }).start();
   },
 

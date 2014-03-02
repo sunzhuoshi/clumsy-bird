@@ -7,6 +7,7 @@
                 debug="false" output="flappy-dragon-min.js">
             <!-- lib sources -->
             <sources dir="${basedir}/lib">
+                <file name="jquery.min.js"/>
                 <file name="melonJS-1.0.0-min.js"/>
             </sources>
             <!-- game sources -->
@@ -33,6 +34,7 @@
                 debug="false" output="flappy-dragon-min.js">
             <!-- lib sources -->
             <sources dir="${basedir}/lib">
+                <file name="jquery.min.js"/>
                 <file name="melonJS-1.0.0-min.js"/>
             </sources>
             <!-- game sources -->

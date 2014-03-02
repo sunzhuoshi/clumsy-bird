@@ -10,17 +10,19 @@ game.GameOverScreen = me.ScreenObject.extend({
   },
 
   onResetEvent: function() {
-    me.audio.play('gameover', false);  
-    //save section
-    this.savedData = {
-      score: game.data.score,
-      steps: game.data.steps
-    };
-    me.save.add(this.savedData);
-    if (!me.save.topSteps) me.save.add({topSteps: game.data.steps});
-    if (game.data.steps > me.save.topSteps){
-      me.save.topSteps = game.data.steps;
-      game.data.newHiScore = true;
+    me.audio.play('gameover', false);
+    replayController.onGameOver();
+    if (!replayController.inReplayMode()) {
+        //save section
+        this.savedData = {
+            steps: game.data.steps
+        };
+        me.save.add(this.savedData);
+        if (!me.save.topSteps) me.save.add({topSteps: game.data.steps});
+        if (game.data.steps > me.save.topSteps){
+            me.save.topSteps = game.data.steps;
+            game.data.newHiScore = true;
+        }
     }
     me.input.bindKey(me.input.KEY.ENTER, "enter", true);
     me.input.bindKey(me.input.KEY.SPACE, "enter", false)
@@ -28,6 +30,7 @@ game.GameOverScreen = me.ScreenObject.extend({
 
     this.handler = me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge) {
         if (action === "enter") {
+            replayController.reset();
             me.state.change(me.state.MENU);
         }
     });
@@ -48,35 +51,36 @@ game.GameOverScreen = me.ScreenObject.extend({
       gImageBoard
     ), 10);
 
-    // share button
-    this.share = new Share();
-    me.game.world.addChild(this.share, 12);
+    if (!replayController.inReplayMode()) {
+        // share button
+        this.share = new Share();
+        me.game.world.addChild(this.share, 12);
 
-    //tweet button
-    this.tweet = new Tweet();
-    me.game.world.addChild(this.tweet, 12);
+        //tweet button
+        this.tweet = new Tweet();
+        me.game.world.addChild(this.tweet, 12);
 
-    // only init it when succeed loading sina weibo jssdk
-    if (typeof WB2 !== 'undefined') {
-        // share via sina weibo button
-        this.shareViaSinaWeibo = new ShareViaSinaWeibo();
-        me.game.world.addChild(this.shareViaSinaWeibo, 12);
+        // only init it when succeed loading sina weibo jssdk
+        if (typeof WB2 !== 'undefined') {
+            // share via sina weibo button
+            this.shareViaSinaWeibo = new ShareViaSinaWeibo();
+            me.game.world.addChild(this.shareViaSinaWeibo, 12);
+        }
+        else {
+            this.tweet.pos.x -= SHARE_VIA_SINA_WEIBO_BUTTON_WIDTH / 2;
+            this.share.pos.x += SHARE_VIA_SINA_WEIBO_BUTTON_WIDTH / 2;
+        }
+
+        // add the dialog with the game information
+        if (game.data.newHiScore){
+            var newRect = new me.SpriteObject(
+                235,
+                385,
+                me.loader.getImage('new')
+            );
+            me.game.world.addChild(newRect, 12);
+        }
     }
-    else {
-        this.tweet.pos.x -= SHARE_VIA_SINA_WEIBO_BUTTON_WIDTH / 2;
-        this.share.pos.x += SHARE_VIA_SINA_WEIBO_BUTTON_WIDTH / 2;
-    }
-
-    // add the dialog with the game information
-    if (game.data.newHiScore){
-      var newRect = new me.SpriteObject(
-          235,
-          385,
-          me.loader.getImage('new')
-      );
-      me.game.world.addChild(newRect, 12);
-    }
-
     this.dialog = new (me.Renderable.extend({
       // constructor
       init : function() {
@@ -85,18 +89,14 @@ game.GameOverScreen = me.ScreenObject.extend({
           this.parent(new me.Vector2d(), 100, 100);
           this.font = new me.Font('Arial Black', 40, 'black', 'left');
           this.steps = 'Steps: ' + game.data.steps.toString();
-          this.topSteps= 'Top Step: ' + me.save.topSteps.toString();
-      },
-
-      update : function () {
-        return true;
+          if (!replayController.inReplayMode()) {
+              this.topSteps= 'Top Step: ' + me.save.topSteps.toString();
+          }
       },
 
       draw : function (context) {
         var stepsText = this.font.measureText(context, this.steps);
-        var topStepsText = this.font.measureText(context, this.topSteps);
-
-        var scoreText = this.font.measureText(context, this.score);
+        var topStepsText;
         //steps
         this.font.draw(
             context,
@@ -104,14 +104,18 @@ game.GameOverScreen = me.ScreenObject.extend({
             me.game.viewport.width/2 - stepsText.width/2,
             me.game.viewport.height/2 + 10
         );
-        //top score
-        this.font.draw(
-            context,
-            this.topSteps,
-            me.game.viewport.width/2 - topStepsText.width/2,
-            me.game.viewport.height/2 + 80
-        );
-
+        if (!replayController.inReplayMode()) {
+            if (this.topSteps) {
+                topStepsText = this.font.measureText(context, this.topSteps);
+                //top score
+                this.font.draw(
+                    context,
+                    this.topSteps,
+                    me.game.viewport.width/2 - topStepsText.width/2,
+                    me.game.viewport.height/2 + 80
+                );
+            }
+        }
       }
     }));
     me.game.world.addChild(this.dialog, 12);

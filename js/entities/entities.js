@@ -26,14 +26,26 @@ var BirdEntity = me.ObjectEntity.extend({
   },
 
   update: function(dt){
+    var fly = false;
     // mechanics
     if (game.data.start) {
-      if (me.input.isKeyPressed('fly')){
+      if (replayController.inReplayMode()) {
+          if (replayController.eatFly()) {
+              fly = true;
+          }
+      }
+      else {
+          fly = me.input.isKeyPressed('fly');
+          if (fly) {
+              replayController.saveFly();
+          }
+      }
+      if (fly){
         this.gravityForce = 0.01;
 
         var currentPos = this.pos.y;
         // stop the previous one
-        this.flyTween.stop()
+        this.flyTween.stop();
         this.flyTween.to({y: currentPos - 72}, 100);
         this.flyTween.start();
 
@@ -119,10 +131,14 @@ var PipeGenerator = me.Renderable.extend({
 
   update: function(dt){
     if (this.generate++ % this.pipeFrequency == 0){
-      var posY = Number.prototype.random(
-          me.video.getHeight() - 100,
-          200
-      );
+      var posY = replayController.eatPipe();
+      if (false === posY) {
+          posY = Number.prototype.random(
+              me.video.getHeight() - 100,
+              200
+          );
+      }
+      replayController.savePipe(posY);
       var posY2 = posY - me.video.getHeight() - this.pipeHoleSize;
       var pipe1 = new me.pool.pull("pipe", this.posX, posY);
       var pipe2 = new me.pool.pull("pipe", this.posX, posY2);
