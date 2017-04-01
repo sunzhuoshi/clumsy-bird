@@ -1,103 +1,36 @@
 <!DOCTYPE HTML>
-<html lang="en" manifest="manifest.appcache">
+<html lang="en">
   <head>
-    <title>Clumsy Bird</title>
-    <link rel="apple-touch-icon-precomposed" href="data/img/touch-icon-iphone.png"/>
-    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="data/img/touch-icon-iphone-retina.png"/>
-    <link rel="shortcut icon" href="data/img/favicon.ico">
+    <title>Flappy Dragon</title>
+    <script>
+      // NOTE: DON'T forget to change it when update
+      var VERSION='1.3.2';
+    </script>
     <link rel="stylesheet" type="text/css" media="screen" href="index.css">
+    <link rel="icon" type="image/GIF" href="data/img/favicon.ico"/>
+    <link rel="apple-touch-icon-precomposed" href="data/img/Icon.png">
+    <link rel="apple-touch-icon-precomposed" href="data/img/Icon@2x.png" sizes="114x114">
     <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="no">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta charset="UTF-8" />
-    <meta name="description" content="Clumsy Bird - A Flappy Bird clone using MelonJS"/>
-    <meta name="keywords" content="flappybird, flappy, bird, game, html5, melonjs,clone"/>
+    <meta name="description" content="Flappy Dragon - A Flappy Bird clone based on clumsy bird by sllisonleao"/>
+    <meta name="keywords" content="flappybird, flappy, bird, game, html5, melonjs, clone, puzzle, dragons, pad, pnd"/>
     <meta name="robots" content="index, follow">
-    <meta property="og:image" content="http://ellisonleao.github.io/clumsy-bird/data/img/bg.png" />
-    <meta property="og:title" content="Clumsy Bird - A Flappy Bird clone using MelonJS"/>
-    <meta property="og:url" content="http://ellisonleao.github.io/clumsy-bird/"/>
-    <meta property="og:site_name" content="Clumsy Bird - MelonJS"/>
+    <meta property="og:image" content="http://flappydragon.net/data/img/bg.png" />
+    <meta property="og:title" content="Flappy Dragon - A Flappy Bird clone based on clumsy bird by ellisonleao"/>
+    <meta property="og:url" content="http://flappydragon.net"/>
+    <meta property="og:site_name" content="Flappy Dragon"/>
   </head>
 
   <body>
-    <div id="fb-root"></div>
-    <script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId      : '213642148840283',
-          status     : true,
-          xfbml      : true
-        });
-      };
-
-      (function(d, s, id){
-         var js, fjs = d.getElementsByTagName(s)[0];
-         if (d.getElementById(id)) {return;}
-         js = d.createElement(s); js.id = id;
-         js.src = "//connect.facebook.net/pt_BR/all.js";
-         fjs.parentNode.insertBefore(js, fjs);
-       }(document, 'script', 'facebook-jssdk'));
-    </script>
     <!-- Canvas placeholder -->
     <div id="screen"></div>
-    <!-- Sharing section -->
-    <div id="share">
-      <iframe 
-        src="http://ghbtns.com/github-btn.html?user=ellisonleao&repo=clumsy-bird&type=watch&count=true"
-        allowtransparency="true" 
-        frameborder="0" 
-        scrolling="0" 
-        width="77" 
-        height="20">
-      </iframe>
-      <div 
-        class="fb-share-button" 
-        data-href="http://ellisonleao.github.io/clumsy-bird/" 
-        data-type="button_count">
-      </div>
-      <a 
-        href="https://twitter.com/ellisonleao" 
-        class="twitter-follow-button" 
-        data-show-count="false">Follow @ellisonleao
-      </a>
-      <div class="google">
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-          ga('create', 'UA-899823-9', 'ellisonleao.github.io');
-          ga('send', 'pageview');
-        </script>
-        <script type="text/javascript"><!--
-        google_ad_client = "ca-pub-1107121710553160";
-        /* Clumsy Ads */
-        google_ad_slot = "4971477596";
-        google_ad_width = 728;
-        google_ad_height = 90;
-        //-->
-        </script>
-        <script type="text/javascript"
-        src="//pagead2.googlesyndication.com/pagead/show_ads.js">
-        </script>
-      </div>
-      <script>
-        !function(d,s,id){
-          var js,fjs=d.getElementsByTagName(s)[0],
-              p=/^http:/.test(d.location)?'http':'https';
-          if(!d.getElementById(id)){
-            js=d.createElement(s);
-            js.id=id;
-            js.src=p+'://platform.twitter.com/widgets.js';
-            fjs.parentNode.insertBefore(js,fjs);
-          }
-        }(document, 'script', 'twitter-wjs');
-      </script>
+    <div id="copyright" style="margin: 10px 0; text-align: center">
+        Created by 春哥株式会社 2014(v<script>document.write(VERSION)</script>), based on <a href="https://twitter.com/ellisonleao">ellisonleao</a>'s <a href="http://ellisonleao.github.io/clumsy-bird">clumsy bird</a>
     </div>
-
-    <!-- melonJS Library -->
-    <script type="text/javascript" src="lib/melonJS-1.0.0-min.js" ></script>
-    <script type="text/javascript" src="build/clumsy-min.js" ></script>
+    <!-- Compiled Game Script -->
+    <script type="text/javascript" src="flappy-dragon-min.js"></script>
     <!-- Bootstrap & Mobile optimization tricks -->
     <script type="text/javascript">
       window.onReady(function onReady() {
@@ -124,6 +57,33 @@
         }
       });
     </script>
-
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-48010296-1', 'flappydragon.net');
+        ga('send', 'pageview');
+    </script>
+    <!-- facebook -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=711540455545711";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <!-- only link sina weibo when http used, for https not well supported by jssdk api -->
+    <script>
+        if ('http:' === window.location.protocol) {
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = 'http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=3157843944';
+            script.charset = 'utf-8';
+            document.body.appendChild(script);
+        }
+    </script>
   </body>
 </html>
