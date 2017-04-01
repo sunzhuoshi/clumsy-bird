@@ -1,0 +1,47 @@
+CACHE MANIFEST
+# built 2014.02.15 6:51PM
+# back ground music
+data/bgm/gameover.mp3
+data/bgm/gameover.ogg
+data/bgm/intro.mp3
+data/bgm/intro.ogg
+data/bgm/theme.mp3
+data/bgm/theme.ogg
+
+# images
+data/img/bg.png
+data/img/city.png
+data/img/clumsy.png
+data/img/favicon.ico
+data/img/font.png
+data/img/gameover.png
+data/img/gameoverbg.png
+data/img/getready.png
+data/img/ground.png
+data/img/hit.png
+data/img/Icon.png
+data/img/Icon@2x.png
+data/img/logo.png
+data/img/new.png
+data/img/pipe.png
+data/img/share.png
+data/img/shareviasinaweibo.png
+data/img/start1.png
+data/img/start2.png
+data/img/trees.png
+data/img/tweet.png
+
+# sound effects
+data/sfx/coin.mp3
+data/sfx/coin.ogg
+data/sfx/fly.mp3
+data/sfx/fly.ogg
+
+flappy-dragon-min.js
+index.css
+index.html
+
+FALLBACK:
+
+NETWORK:
+*
