@@ -1,149 +1,110 @@
 game.GameOverScreen = me.ScreenObject.extend({
+    init: function() {
+        this.savedData = null;
+        this.handler = null;
+    },
 
-  init: function(){
-    this.savedData = null;
-    this.handler = null;
-    this.dialog = null;
+    onResetEvent: function() {
+        //save section
+        this.savedData = {
+            score: game.data.score,
+            steps: game.data.steps
+        };
+        me.save.add(this.savedData);
 
-  },
-
-  onResetEvent: function() {
-    //save section
-    this.savedData = {
-      score: game.data.score,
-      steps: game.data.timer
-    };
-    me.save.add(this.savedData);
-    if (!me.save.topSteps) me.save.add({topSteps: game.data.timer});
-    console.log(game.data.newHiScore);
-    if (game.data.timer > me.save.topSteps){
-      me.save.topSteps = game.data.timer;
-      game.data.newHiScore = true;
-    }
-    me.input.bindKey(me.input.KEY.ENTER, "enter", true);
-    me.input.bindKey(me.input.KEY.SPACE, "enter", false)
-    me.input.bindMouse(me.input.mouse.LEFT, me.input.KEY.ENTER);
-
-    this.handler = me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge) {
-        if (action === "enter") {
-            me.state.change(me.state.MENU);
+        if (!me.save.topSteps) me.save.add({topSteps: game.data.steps});
+        if (game.data.steps > me.save.topSteps) {
+            me.save.topSteps = game.data.steps;
+            game.data.newHiScore = true;
         }
-    });
+        me.input.bindKey(me.input.KEY.ENTER, "enter", true);
+        me.input.bindKey(me.input.KEY.SPACE, "enter", false)
+        me.input.bindPointer(me.input.pointer.LEFT, me.input.KEY.ENTER);
 
-    me.game.world.addChild(new BackgroundLayer('bg', 1));
+        this.handler = me.event.subscribe(me.event.KEYDOWN,
+            function (action, keyCode, edge) {
+                if (action === "enter") {
+                    me.state.change(me.state.MENU);
+                }
+            });
 
-    var gImage =  me.loader.getImage('gameover');
-    me.game.world.addChild(new me.SpriteObject(
-        me.video.getWidth()/2 - gImage.width/2,
-        me.video.getHeight()/2 - gImage.height/2 - 100,
-        gImage
-    ), 10);
+        me.game.world.addChild(new me.Sprite(
+            me.game.viewport.width/2,
+            me.game.viewport.height/2 - 100,
+            {image: 'gameover'}
+        ), 12);
 
-    var gImageBoard = me.loader.getImage('gameoverbg');
-    me.game.world.addChild(new me.SpriteObject(
-      me.video.getWidth()/2 - gImageBoard.width/2,
-      me.video.getHeight()/2 - gImageBoard.height/2,
-      gImageBoard
-    ), 10);
-
-    /*
-    var shareImg = me.loader.getImage('share');
-    var Share = me.Renderable.extend({
-      init: function(image, action, y){
-        this.image = me.loader.getImage(image);
-        this.action = action;
-        this.pos = new me.Vector2d(
-          me.video.getWidth()/ 2 - this.image.width/2,
-          y
+        var gameOverBG = new me.Sprite(
+            me.game.viewport.width/2,
+            me.game.viewport.height/2,
+            {image: 'gameoverbg'}
         );
-        this.parent(this.pos, this.image.width, this.image.height);
-        me.input.registerPointerEvent("mousedown", this, this.clicked.bind(this));
-      },
+        me.game.world.addChild(gameOverBG, 10);
 
-      clicked: function(){
-        console.log('Call facebook share api!');
-      },
+        me.game.world.addChild(new BackgroundLayer('bg', 1));
 
-      draw: function(context){
-        context.drawImage(this.image, this.pos.x, this.pos.y);
-      },
+        // ground
+        this.ground1 = me.pool.pull('ground', 0, me.game.viewport.height - 96);
+        this.ground2 = me.pool.pull('ground', me.game.viewport.width,
+            me.video.renderer.getHeight() - 96);
+        me.game.world.addChild(this.ground1, 11);
+        me.game.world.addChild(this.ground2, 11);
 
-      update: function(){
-        return true;
-      },
+        // add the dialog witht he game information
+        if (game.data.newHiScore) {
+            var newRect = new me.Sprite(
+                gameOverBG.width/2,
+                gameOverBG.height/2,
+                {image: 'new'}
+            );
+            me.game.world.addChild(newRect, 12);
+        }
 
-      onDestroyEvent: function(){
-          me.input.releasePointerEvent("mousedown", this);
-      }
+        this.dialog = new (me.Renderable.extend({
+            // constructor
+            init: function() {
+                this._super(me.Renderable, 'init',
+                    [0, 0, me.game.viewport.width/2, me.game.viewport.height/2]
+                );
+                this.font = new me.Font('gamefont', 40, 'black', 'left');
+                this.steps = 'Steps: ' + game.data.steps.toString();
+                this.topSteps= 'Higher Step: ' + me.save.topSteps.toString();
+            },
 
-    });
-    me.game.world.addChild(Share, 12);
-    */
+            draw: function (renderer) {
+                var stepsText = this.font.measureText(renderer, this.steps);
+                var topStepsText = this.font.measureText(renderer, this.topSteps);
+                var scoreText = this.font.measureText(renderer, this.score);
 
-    // add the dialog witht he game information
-    if (game.data.newHiScore){
-      var newRect = new me.SpriteObject(
-          235,
-          415,
-          me.loader.getImage('new')
-      );
-      me.game.world.addChild(newRect, 12);
+                //steps
+                this.font.draw(
+                    renderer,
+                    this.steps,
+                    me.game.viewport.width/2 - stepsText.width/2 - 60,
+                    me.game.viewport.height/2
+                );
+
+                //top score
+                this.font.draw(
+                    renderer,
+                    this.topSteps,
+                    me.game.viewport.width/2 - stepsText.width/2 - 60,
+                    me.game.viewport.height/2 + 50
+                );
+            }
+        }));
+        me.game.world.addChild(this.dialog, 12);
+    },
+
+    onDestroyEvent: function() {
+        // unregister the event
+        me.event.unsubscribe(this.handler);
+        me.input.unbindKey(me.input.KEY.ENTER);
+        me.input.unbindKey(me.input.KEY.SPACE);
+        me.input.unbindPointer(me.input.pointer.LEFT);
+        this.ground1 = null;
+        this.ground2 = null;
+        this.font = null;
+        me.audio.stop("theme");
     }
-
-    this.dialog = new (me.Renderable.extend({
-      // constructor
-      init : function() {
-          // size does not matter, it's just to avoid having a zero size
-          // renderable
-          this.parent(new me.Vector2d(), 100, 100);
-          this.font = new me.Font('Arial Black', 40, 'black', 'left');
-          this.score = 'Final Score: ' + game.data.score.toString();
-          this.timer = 'Steps: ' + Math.round(game.data.timer).toString();
-          this.topSteps= 'Larger Step: ' + me.save.topSteps.toString();
-      },
-
-      update : function () {
-        return true;
-      },
-
-      draw : function (context) {
-        var stepsText = this.font.measureText(context, this.timer);
-        var topStepsText = this.font.measureText(context, this.topSteps);
-
-        var scoreText = this.font.measureText(context, this.score);
-        //score
-        this.font.draw(
-            context,
-            this.score,
-            me.game.viewport.width/2 - scoreText.width/2,
-            me.game.viewport.height/2
-        );
-        //steps
-        this.font.draw(
-            context,
-            this.timer,
-            me.game.viewport.width/2 - stepsText.width/2,
-            me.game.viewport.height/2 + 50
-        );
-        //top score
-        this.font.draw(
-            context,
-            this.topSteps,
-            me.game.viewport.width/2 - topStepsText.width/2,
-            me.game.viewport.height/2 + 110
-        );
-
-      }
-    }));
-    me.game.world.addChild(this.dialog, 12);
-  },
-
-	onDestroyEvent : function() {
-		// unregister the event
-		me.event.unsubscribe(this.handler);
-    me.input.unbindKey(me.input.KEY.ENTER);
-    me.input.unbindKey(me.input.KEY.SPACE);
-		me.input.unbindMouse(me.input.mouse.LEFT);
-	}
-
 });
